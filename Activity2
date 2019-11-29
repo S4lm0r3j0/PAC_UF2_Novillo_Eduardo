@@ -1,0 +1,55 @@
+package com.example.pac_uf2_novillo_eduardo;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+public class Activity2 extends AppCompatActivity {
+
+    private EditText miNombre;
+    private EditText miApellido;
+    private EditText miCiudad;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_2);
+        Toast toast1 = Toast.makeText(getApplicationContext(), "Actividad 2", Toast.LENGTH_LONG);
+        toast1.show();
+        miNombre = (EditText) findViewById(R.id.miNombre);
+        miApellido = (EditText) findViewById(R.id.miApellido);
+        miCiudad = (EditText) findViewById(R.id.miCiudad);
+
+    }
+
+    public void irMainActivity(View view) {
+        Intent intent = new Intent(Activity2.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    BD bd;
+
+    public void crearTabla(View view) {
+        bd = new BD(this,"PAC", null, 1);
+        Toast.makeText(this, "Tabla creada", Toast.LENGTH_SHORT).show();
+    }
+
+    public void insertarDatos(View view){ // Aqui esta el problema, los datos no se mandan como deberian, no se si es por que debo usar un intent
+
+        String nombre = null;
+        String apellido = null;
+        String ciudad = null;
+        nombre = miNombre.getText().toString();
+        apellido = miApellido.getText().toString();
+        ciudad = miCiudad.getText().toString();
+        bd.insertar(nombre, apellido, ciudad,getApplicationContext());
+
+    }
+
+}
